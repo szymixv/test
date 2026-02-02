@@ -221,29 +221,51 @@
   </button>
 </div>
 
+<!-- PRZYCISK: czat z Tobą -->
+<div style="text-align:center; margin-top: 30px;">
+  <button
+    id="openMessengerButton"
+    style="
+      padding: 18px 34px;
+      font-size: 20px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+      transition: 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    "
+  >
+    💬 Napisz do mnie na Messengerze
+  </button>
+</div>
+
 <script>
   (function () {
-    const APP_LINK = "fb-messenger://user-thread/Szymi001";
-    const WEB_LINK = "https://m.me/Szymi001";
+    const APP_LINK = "fb-messenger://user-thread/9330259030434248";  // aplikacja Messenger
+    const WEB_LINK = "https://m.me/Szymi001";                        // wersja web
 
-    const isMobile =
-      /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
     document.getElementById("openMessengerButton").addEventListener("click", function () {
       if (isMobile) {
-        // najpierw aplikacja
-        const now = Date.now();
+        // spróbuj otworzyć aplikację
+        const start = Date.now();
         window.location.href = APP_LINK;
 
-        // fallback do wersji web
+        // jeśli nie otworzy aplikacji, po ~800 ms otworzy wersję web
         setTimeout(() => {
-          if (Date.now() - now < 2000) {
+          if (Date.now() - start < 2000) {
             window.location.href = WEB_LINK;
           }
-        }, 700);
+        }, 800);
 
       } else {
-        // komputer → przeglądarka
+        // komputer → otwieramy w nowej karcie
         window.open(WEB_LINK, "_blank", "noopener");
       }
     });
