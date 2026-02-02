@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -13,7 +14,7 @@
     *{ box-sizing:border-box; }
     html, body { height: 100%; }
     body{
-      margin:0; font-family: ui-sans-serif, system-ui;
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
       color: var(--ink);
       background:
         radial-gradient(1200px 600px at 20% -10%, rgba(255,255,255,.55), transparent 60%),
@@ -37,16 +38,15 @@
     }
     .heart::before, .heart::after{ content:""; position:absolute; width:18px; height:18px; background: var(--accent); border-radius:50%; }
     .heart::before{ left:-9px; } .heart::after{ top:-9px; }
-
     .h1{ left:8%;  bottom:-8vh;  animation-duration:14s; }
     .h2{ left:22%; bottom:-10vh; animation-duration:18s; animation-delay:1s; }
     .h3{ left:41%; bottom:-12vh; animation-duration:16s; animation-delay:2.3s; }
     .h4{ left:63%; bottom:-9vh;  animation-duration:20s; animation-delay:.6s; }
     .h5{ left:78%; bottom:-11vh; animation-duration:17s; animation-delay:1.6s; }
-
     @keyframes floatUp{ from { transform: translateY(0) rotate(45deg); opacity:.18; } 60%{opacity:.33;} to { transform: translateY(-120vh) rotate(45deg); opacity:.1; } }
 
     main{ display:grid; place-items:center; padding: 28px 16px 64px; }
+
     .card{
       width: min(920px, 92vw);
       background: rgba(255,255,255,.55);
@@ -68,23 +68,35 @@
     }
     .photo{ position:relative; border-radius: 14px; overflow:hidden; aspect-ratio: 4/3;
       box-shadow: 0 12px 26px rgba(0,0,0,.18);
-      background:#fff; }
-    .photo img{ width:100%; height:100%; object-fit: cover; display:block; }
+      transform: translateZ(0); background:#fff; }
+    .photo img{
+      width:100%; height:100%; object-fit: cover; display:block;
+      transition: transform 400ms ease, filter 400ms ease;
+      filter: saturate(1.05) contrast(1.02);
+      background:#eee;
+    }
+    .photo::after{ content:"❤"; position:absolute; right:10px; bottom:8px; font-size: 18px; line-height:1; opacity:.9; text-shadow: 0 2px 8px rgba(0,0,0,.25); color: #fff; }
+    .photo:hover img{ transform: scale(1.03); filter: saturate(1.15) contrast(1.06); }
 
     footer{ padding: 20px 16px 28px; }
-    .spotify-embed{ max-width: 920px; margin: 0 auto; border-radius: 12px; overflow: hidden; }
-    
+    .spotify-embed{ max-width: 920px; margin: 0 auto; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 28px rgba(0,0,0,.18); background: #121212; min-height: 160px; }
+    .spotify-iframe{ display:block; width:100%; height:160px; border:0; border-radius:12px; }
+    .spotify-note{ text-align:center; font-size: 14px; color:#6c3a4a; margin: 10px 0 0; }
+    .spotify-fallback{ text-align:center; margin-top: 10px; display:none; }
+    .spotify-fallback a{ color:#7d2a3f; font-weight:800; text-decoration:none; border-bottom: 2px solid rgba(125,42,63,.25); padding-bottom: 2px; }
+    .spotify-fallback a:hover{ color:#bf3253; border-color: rgba(191,50,83,.5); }
+
     @keyframes fadeInBody { from {opacity:0} to {opacity:1} }
     @keyframes dropInHeader { 0%{opacity:0; transform:translateY(-8px)} 100%{opacity:1; transform:translateY(0)} }
     @keyframes riseIn { 0%{opacity:0; transform:translateY(14px) scale(.995)} 100%{opacity:1; transform:translateY(0) scale(1)} }
 
+    @media(prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
     @media (max-width: 680px){ .gallery{ grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
-
-  <!-- serduszka -->
-  <div class="hearts">
+  <!-- serduszka w tle -->
+  <div class="hearts" aria-hidden="true">
     <div class="heart h1"></div><div class="heart h2"></div><div class="heart h3"></div>
     <div class="heart h4"></div><div class="heart h5"></div>
   </div>
@@ -95,58 +107,119 @@
   </header>
 
   <main>
-    <section class="card">
+    <section class="card" aria-label="Kartka przeprosinowa">
       <div class="apology">
         <p>
-          Natalio...
+          Natalio, nie potrafię bez Ciebie żyć, ciągle myślę o nas, bo Cię kocham i chcę z Tobą spędzić resztę mojego życia.
+          Chcę z Tobą spędzać czas w najróżniejszy sposób — na przykład patrzenie sobie głęboko w oczy, lekki pocałunek
+          i niekończąca się chwila, w której świat się rozpływa...
+          Zjebałem i Chcę to naprawić, zraniłem Cię i cholernie mi przykro z tego powodu
+          Ta przerwa mi juz pokazała, że nie potrafię bez Ciebie żyć 
+          Jestem gotów znów wejść w związek tylko teraz pytanie czy chcesz tego samego?
+          Słońce, jeśli chcesz pogadać, to daj jakiś znak, bo nie wiem, czy mogę pisać czy nie...
+          Mam 2 nagrania gdzie mowie o tym jak sie czuje po naszym 2 spotkaniu 
+          jeśli chciałabyś je usłyszeć to wyślij serce na msg
+          Wiem, że to jest głupie — ta relacja na IG, ta strona — ale uważam to za szalone w dobrym tego słowa znaczeniu...
           <span class="accent">Kocham Cię</span>
         </p>
         <div class="signature">– Twój Szymuś</div>
       </div>
 
-      <div class="gallery">
-        <figure class="photo"><img src="/public/97442e25-0e8c-c2628f468d4a.jpg</figure>
-        <figure class="photo"><img src="/public/bad53546-3012-4f483eeebc1b.jpg</figure>
+      <!-- Galeria zdjęć — Netlify: ścieżki muszą prowadzić do /public/... -->
+      <div class="gallery" aria-label="Nasze wspomnienia">
+        <figure class="photo">
+          <img id="img1" src="/public/97442e25-0e13-42fe-8f8c-c2628f468d4a.jpg" alt="Wspomnienie 1" loading="lazy" />
+        </figure>
+        <figure class="photo">
+          <img id="img2" src="/public/bad53546-3012-4f5a-94a9-be483eeebc1b.jpg" alt="Wspomnienie 2" loading="lazy" />
+        </figure>
       </div>
     </section>
   </main>
 
-  <!-- PRZYCISK DO MESSENGERA -->
-  <div style="text-align:center; margin-top: 30px;">
-    <button
-      id="openMessengerButton"
-      style="
-        padding: 18px 34px;
-        font-size: 20px;
-        background: #28a745;
-        color: white;
-        border: none;
-        border-radius: 12px;
-        cursor: pointer;
-        box-shadow: 0 6px 16px rgba(0,0,0,0.25);
-        transition: 0.25s;
-      "
-    >
-      💬 Otwórz Messenger
-    </button>
-  </div>
+  <!-- Spotify (Twój utwór) -->
+  <footer>
+    <div class="spotify-embed" id="spotify-embed">
+      <iframe
+        class="spotify-iframe"
+        src="https://open.spotify.com/embed/track/6ICEKfLzHvCRFx1eIoITve?utm_source=generator"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
+    </div>
+    <p class="spotify-note">
+      Ta piosenka kojarzy mi się z naszymi początkami.. Kocham Cię
+    </p>
+    <div class="spotify-fallback" id="spotify-fallback">
+      <p>Odtwarzacz jest zablokowany. Otwórz utwór bezpośrednio:</p>
+      <p>
+        <a href="https://open.spotify.com/track/6ICEKfLzHvCRFx1eIoITve?si=6914dddec1b842ce" target="_blank" rel="noopener">
+          ▶ Otwórz w Spotify
+        </a>
+      </p>
+    </div>
 
-  <script>
-    document.getElementById("openMessengerButton").addEventListener("click", function () {
-      const app = "fb-messenger://user-thread/9330259030434248";
-      const web = "https://www.messenger.com/t/9330259030434248/";
-
-      const isMobile =
-        /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
-
-      if (isMobile) {
-        window.location.href = app;
-        setTimeout(() => window.location.href = web, 700);
-      } else {
-        window.open(web, "_blank");
+    <script>
+      // Logi obrazków – zobaczysz w Konsoli (F12)
+      function bindImgLog(id){
+        const el = document.getElementById(id);
+        if(!el) return;
+        el.addEventListener('load', () => console.log('[IMG OK]', id, el.currentSrc));
+        el.addEventListener('error', () => console.error('[IMG ERROR]', id, 'Nie można wczytać:', el.getAttribute('src')));
       }
-    });
-  </script>
+      bindImgLog('img1');
+      bindImgLog('img2');
 
+      // Fallback dla Spotify – jeśli iframe jest zablokowany (np. przeglądarka IG)
+      window.addEventListener('load', () => {
+        const iframe = document.querySelector('.spotify-iframe');
+        const fallback = document.getElementById('spotify-fallback');
+        const embedBox = document.getElementById('spotify-embed');
+        function visible(el){ if (!el) return false; const r = el.getBoundingClientRect(); return r.width > 0 && r.height >= 140; }
+        setTimeout(() => { if (!visible(iframe)) { fallback.style.display = 'block'; embedBox.style.minHeight = '0'; } }, 3000);
+      });
+    </script>
+  </footer>
+  <div style="text-align:center; margin-top: 26px;">
+  <button
+    id="openMessengerButton"
+    style="
+      padding: 18px 34px;
+      font-size: 20px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+      transition: 0.25s;
+    "
+  >
+    💬 Otwórz Messenger
+  </button>
+</div>
+
+<script>
+  document.getElementById("openMessengerButton").addEventListener("click", function () {
+    const messengerApp = "fb-messenger://user-thread/9330259030434248";
+    const messengerWeb = "https://www.messenger.com/t/9330259030434248/";
+
+    const isMobile =
+      /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+
+    if (isMobile) {
+      // próba otwarcia aplikacji Messenger
+      window.location.href = messengerApp;
+
+      // jeśli aplikacja jest zablokowana -> po 700ms otwiera wersję web
+      setTimeout(() => {
+        window.location.href = messengerWeb;
+      }, 700);
+    } else {
+      // komputer -> otwiera Messenger.com
+      window.open(messengerWeb, "_blank");
+    }
+  });
+</script>
 </body>
 </html>
