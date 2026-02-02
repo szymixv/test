@@ -2,35 +2,57 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Przycisk do Messengera</title>
+    <title>Przycisk</title>
     <style>
         body {
+            margin: 0;
+            height: 100vh;
+            background-color: #1E90FF; /* niebieskie tło */
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #f0f2f5;
             font-family: Arial, sans-serif;
         }
 
-        a {
-            padding: 15px 30px;
-            background-color: #0084ff;
+        .btn {
+            background-color: #28a745; /* zielony */
             color: white;
-            text-decoration: none;
-            font-size: 20px;
-            border-radius: 8px;
+            padding: 20px 50px;
+            font-size: 26px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
             transition: 0.3s;
+            animation: pulse 1.5s infinite; /* animacja */
         }
 
-        a:hover {
-            background-color: #006edc;
+        .btn:hover {
+            background-color: #218838;
+            transform: scale(1.05);
         }
+
+        /* Ikona */
+        .btn-icon {
+            font-size: 30px;
+        }
+
+        /* Animacja pulsowania */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.07); }
+            100% { transform: scale(1); }
+        }
+
     </style>
 </head>
 <body>
 
-    https://www.messenger.com/e2ee/t/9330259030434248/
+    <button class="btn" onclick="window.location.href='https://www.messenger.com/e2ee/t/933025>
+        Kliknij
+    </button>
 
 </body>
 </html>
