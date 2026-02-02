@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Przycisk</title>
+
     <style>
         body {
             margin: 0;
             height: 100vh;
-            background-color: #1E90FF; /* niebieskie tło */
+            background-color: #1E90FF;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -15,42 +16,42 @@
         }
 
         .btn {
-            background-color: #28a745; /* zielony */
+            background-color: #28a745;
             color: white;
             padding: 20px 50px;
             font-size: 26px;
             border: none;
             border-radius: 12px;
             cursor: pointer;
+
             display: flex;
             align-items: center;
             gap: 12px;
+
+            animation: pulse 1.5s infinite;
             transition: 0.3s;
-            animation: pulse 1.5s infinite; /* animacja */
         }
 
         .btn:hover {
+            transform: scale(1.06);
             background-color: #218838;
-            transform: scale(1.05);
         }
 
-        /* Ikona */
-        .btn-icon {
+        .icon {
             font-size: 30px;
         }
 
-        /* Animacja pulsowania */
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.07); }
             100% { transform: scale(1); }
         }
-
     </style>
 </head>
 <body>
 
-    <button class="btn" onclick="window.location.href='https://www.messenger.com/e2ee/t/933025>
+    <button class="btn" onclick="location.href='https/
+        <span class="icon">➡️</span>
         Kliknij
     </button>
 
