@@ -243,33 +243,57 @@
     💬 Napisz do mnie na Messengerze
   </button>
 </div>
+<!-- PRZYCISK: napisz do mnie -->
+<div style="text-align:center; margin-top: 32px;">
+  <button
+    id="contactMe"
+    style="
+      padding: 18px 36px;
+      font-size: 22px;
+      font-weight: 700;
+      background: linear-gradient(90deg, #ff4d6d, #ff6b8f);
+      color: white;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.22);
+      transition: 0.25s;
+      letter-spacing: 0.3px;
+    "
+  >
+    ❤️ Napisz do mnie
+  </button>
+</div>
 
 <script>
-  (function () {
-    const APP_LINK = "fb-messenger://user-thread/9330259030434248";  // aplikacja Messenger
-    const WEB_LINK = "https://m.me/Szymi001";                        // wersja web
+(function () {
+  const APP_LINK = "fb-messenger://user-thread/9330259030434248";
+  const WEB_LINK = "https://m.me/Szymi001";
 
-    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-    document.getElementById("openMessengerButton").addEventListener("click", function () {
-      if (isMobile) {
-        // spróbuj otworzyć aplikację
-        const start = Date.now();
-        window.location.href = APP_LINK;
+  document.getElementById("contactMe").addEventListener("click", function () {
 
-        // jeśli nie otworzy aplikacji, po ~800 ms otworzy wersję web
-        setTimeout(() => {
-          if (Date.now() - start < 2000) {
-            window.location.href = WEB_LINK;
-          }
-        }, 800);
+    if (isMobile) {
+      const start = Date.now();
 
-      } else {
-        // komputer → otwieramy w nowej karcie
-        window.open(WEB_LINK, "_blank", "noopener");
-      }
-    });
-  })();
+      // Próba otworzenia aplikacji
+      window.location.href = APP_LINK;
+
+      // Fallback jeśli aplikacja się nie otworzy
+      setTimeout(() => {
+        if (Date.now() - start < 2000) {
+          window.location.href = WEB_LINK;
+        }
+      }, 700);
+
+    } else {
+      // Desktop → nowa karta
+      window.open(WEB_LINK, "_blank", "noopener");
+    }
+
+  });
+})();
 </script>
 </body>
 </html>
