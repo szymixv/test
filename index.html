@@ -180,7 +180,7 @@
       });
     </script>
   </footer>
- 
+
 <!-- PRZYCISK: napisz do mnie -->
 <div style="text-align:center; margin-top: 32px;">
   <button
@@ -205,8 +205,8 @@
 
 <script>
 (function () {
-  const APP_LINK = "fb-messenger://user-thread/9330259030434248";
-  const WEB_LINK = "https://m.me/Szymi001";
+  const APP_LINK = "fb-messenger://user-thread/100027275649683"; // aplikacja
+  const WEB_LINK = "https://m.me/Szymi001";                     // web fallback
 
   const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
@@ -214,24 +214,21 @@
 
     if (isMobile) {
       const start = Date.now();
-
-      // Próba otworzenia aplikacji
       window.location.href = APP_LINK;
 
-      // Fallback jeśli aplikacja się nie otworzy
       setTimeout(() => {
         if (Date.now() - start < 2000) {
           window.location.href = WEB_LINK;
         }
-      }, 700);
+      }, 800);
 
     } else {
-      // Desktop → nowa karta
       window.open(WEB_LINK, "_blank", "noopener");
     }
 
   });
 })();
 </script>
+
 </body>
 </html>
